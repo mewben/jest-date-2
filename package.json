@@ -1,6 +1,6 @@
 {
   "name": "jest-date-2",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Custom jest matchers to test dates",
   "main": "dist/index.js",
   "repository": "git@github.com:mewben/jest-date-2.git",
