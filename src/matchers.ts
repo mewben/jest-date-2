@@ -15,6 +15,7 @@ import {toBeThursday} from './to-be-thursday'
 import {toBeFriday} from './to-be-friday'
 import {toBeSaturday} from './to-be-saturday'
 import {toBeSunday} from './to-be-sunday'
+import {toBeWithinMinuteAs} from './to-be-within-minute-as'
 
 export {
   toBeBefore,
@@ -34,4 +35,5 @@ export {
   toBeFriday,
   toBeSaturday,
   toBeSunday,
+  toBeWithinMinuteAs,
 }
