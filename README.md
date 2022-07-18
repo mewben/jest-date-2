@@ -1,7 +1,7 @@
-NOTE: I will not be updating this repository anymore. Feel free to fork it or to request ownership if you're interested in keeping this package around. The [jest-date](https://www.npmjs.com/package/jest-date) npm package will stay around in it's current state.
+NOTE: Fork of [jest-date]
 
 <div align="center">
-<h1>jest-date</h1>
+<h1>jest-date-2</h1>
 
 <a href="https://www.emojione.com/emoji/1f989">
   <img
@@ -12,7 +12,7 @@ NOTE: I will not be updating this repository anymore. Feel free to fork it or to
   />
 </a>
 
-<p>Custom jest matchers to compare dates against eachother</p>
+<p>Custom jest matchers to compare dates</p>
 
 </div>
 
@@ -25,13 +25,16 @@ NOTE: I will not be updating this repository anymore. Feel free to fork it or to
 
 ## The problem
 
-You want to use [jest][jest] to write tests that assert how dates compare to eachother. As part of that goal, you want to avoid all the repetitive patterns that arise in doing so and you want to get valueable feedback when tests fail.
+You want to use [jest][jest] to write tests that assert how dates compare to
+eachother. As part of that goal, you want to avoid all the repetitive patterns
+that arise in doing so and you want to get valueable feedback when tests fail.
 
 ## This solution
 
-The `jest-date` library provides a set of custom jest matchers
-that you can use to extend jest. These will make your tests more declarative,
-clear to read and to maintain. Next to that, it will give you valueable information as to why your test are failing.
+The `jest-date` library provides a set of custom jest matchers that you can use
+to extend jest. These will make your tests more declarative, clear to read and
+to maintain. Next to that, it will give you valueable information as to why your
+test are failing.
 
 ## Table of Contents
 
@@ -54,6 +57,7 @@ clear to read and to maintain. Next to that, it will give you valueable informat
   - [`toBeSameMonthAs`](#tobesamemonthas)
   - [`toBeSameQuarterAs`](#tobesamequarteras)
   - [`toBeSameYearAs`](#tobesameyearas)
+  - [`toBeWithinMinuteAs`](#tobewithinminuteas)
   - [`toBeMonday`](#tobemonday)
   - [`toBeTuesday`](#tobetuesday)
   - [`toBeWednesday`](#tobewednesday)
@@ -77,8 +81,8 @@ npm install --save-dev jest-date
 
 ## Usage
 
-Import `jest-date` once (for instance in your [tests setup
-file][]) and you're good to go:
+Import `jest-date` once (for instance in your [tests setup file][]) and you're
+good to go:
 
 [tests setup file]:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
@@ -94,10 +98,7 @@ Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
 
 ```javascript
-import {
-  toBeBefore,
-  toBeSameMonthAs,
-} from 'jest-date/matchers'
+import {toBeBefore, toBeSameMonthAs} from 'jest-date/matchers'
 
 expect.extend({toBeBefore, toBeSameMonthAs})
 ```
@@ -109,44 +110,47 @@ expect.extend({toBeBefore, toBeSameMonthAs})
 
 ### Relative matchers
 
-Relative matchers can be used to compare two dates with eachother. 
-When a matcher fails, it will provide a debug message in the following format:
+Relative matchers can be used to compare two dates with eachother. When a
+matcher fails, it will provide a debug message in the following format:
 
 `Expected date {expected_date} {matcher} {received_date}, but it was {difference}.`
 
 Here are some concrete examples:
 
-[`toBeSameSecondAs`](#tobesamesecondas): 
+[`toBeSameSecondAs`](#tobesamesecondas):
 `Expected date 2020-07-13T22:05:23.670Z to be same second as 2020-07-13T22:05:22.670Z, but it was 1 second after.`
 
-[`toBeBefore`](#tobebefore): 
+[`toBeBefore`](#tobebefore):
 `Expected date 1970-01-01T00:00:00.000Z not to be before 2020-01-01T00:00:00.000Z, but it was 50 years before.`
 
-[`toBeSameQuarterAs`](#tobesamequarteras): 
+[`toBeSameQuarterAs`](#tobesamequarteras):
 `Expected date 2020-10-13T22:15:12.304Z to be same quarter as 2020-07-13T22:15:12.304Z, but it was 3 months after.`
 
 ### Weekday matchers
 
-Weekday matchers can be used to check if a given date falls on a certain day of the week. 
-When this kind of a matcher fails, it will provide a debug message in either the following formats:
+Weekday matchers can be used to check if a given date falls on a certain day of
+the week. When this kind of a matcher fails, it will provide a debug message in
+either the following formats:
 
-Standard Message: `Expected date {received} to be on a {expected_day}, but it was on a {actual_day}.`
+Standard Message:
+`Expected date {received} to be on a {expected_day}, but it was on a {actual_day}.`
 
-Inverted Message: `Expected date {received} not be on a {expected_day}, but it was`
+Inverted Message:
+`Expected date {received} not be on a {expected_day}, but it was`
 
 Here are some concrete examples:
 
-[`toBeMonday`](#tobemonday): 
+[`toBeMonday`](#tobemonday):
 `Expected date 2020-07-13T22:25:43.553Z to be on a monday, but it was on a tuesday.`
 
-[`toBeSunday`](#tobesunday): 
+[`toBeSunday`](#tobesunday):
 `Expected date 2020-07-11T22:26:33.626Z not to be on a sunday, but it was.`
 
 ## Custom matchers
 
-`jest-date` can work with any library or framework. The custom matcher examples below are written using
-functions from the awesome [date-fns][date-fns] library (e.g. `isBefore`,
-`isSameDayAs`, `formatDistance`, etc.)
+`jest-date` can work with any library or framework. The custom matcher examples
+below are written using functions from the awesome [date-fns][date-fns] library
+(e.g. `isBefore`, `isSameDayAs`, `formatDistance`, etc.)
 
 ### `toBeBefore`
 
@@ -398,6 +402,32 @@ expect(addYears(date, 2)).not.toBeSameYearAs(date) // ✔️ pass
 
 <hr />
 
+### `toBeWithinMinuteAs`
+
+**Matcher type**: [relative](#relative-matchers)
+
+```typescript
+toBeWithinMinuteAs(date: Date)
+```
+
+This allows you to check whether a date is within 1 minute as another.
+
+#### Examples
+
+```javascript
+import {addSeconds} from 'date-fns'
+
+const date = new Date()
+
+expect(addSeconds(date, 59)).toBeWithinMinuteAs(date) // ✔️ pass
+expect(addSeconds(date, 60)).toBeWithinMinuteAs(date) // ❌ fail
+
+expect(addSeconds(date, 1)).not.toBeWithinMinuteAs(date) // ❌ fail
+expect(addSeconds(date, 61)).not.toBeWithinMinuteAs(date) // ✔️ pass
+```
+
+<hr />
+
 ### `toBeMonday`
 
 **Matcher type**: [weekday](#weekday-matchers)
@@ -533,40 +563,38 @@ expect(new Date()).not.toBeSunday()
 
 ## Inspiration
 
-This library was created because as far as I know, 
-there is no matcher library out there dedicated to only comparing dates.
-I ended up using the functions from [date-fns][date-fns] to create assertions like this one:
+This library was created because as far as I know, there is no matcher library
+out there dedicated to only comparing dates. I ended up using the functions from
+[date-fns][date-fns] to create assertions like this one:
 
 ```javascript
 expect(isSameDay(date1, date2)).toBe(true)
 ```
 
-But when this fails, you get no feedback at all other than the fact that the dates are not the same day.
-By making date matchers with helpful failure messages, I hope to make the debugging lives of developers a little bit easier.
+But when this fails, you get no feedback at all other than the fact that the
+dates are not the same day. By making date matchers with helpful failure
+messages, I hope to make the debugging lives of developers a little bit easier.
 
-Project structure and tooling hugely inspired by [@testing-library/jest-dom][jest-dom]
+Project structure and tooling hugely inspired by
+[@testing-library/jest-dom][jest-dom]
 
 ## LICENSE
 
 MIT
 
 [jest]: https://facebook.github.io/jest/
+[jest-date]: https://github.com/stefan-wullems/jest-date
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
 [date-fns]: https://date-fns.org/
 [jest-dom]: https://github.com/testing-library/jest-dom
-
-[version-badge]:
-  https://img.shields.io/npm/v/jest-date.svg?style=flat-square
-[package]: https://www.npmjs.com/package/jest-date
-
-[downloads-badge]:
-  https://img.shields.io/npm/dm/jest-date.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/jest-date
-
+[version-badge]: https://img.shields.io/npm/v/jest-date.svg?style=flat-square
+[package]: https://www.npmjs.com/package/jest-date-2
+[downloads-badge]: https://img.shields.io/npm/dm/jest-date.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/jest-date-2
 [github-watch-badge]:
   https://img.shields.io/github/watchers/Stefanwullems/jest-date.svg?style=social
-[github-watch]: https://github.com/Stefanwullems/jest-date/watchers
+[github-watch]: https://github.com/mewben/jest-date-2/watchers
 [github-star-badge]:
-  https://img.shields.io/github/stars/Stefanwullems/jest-date.svg?style=social
-[github-star]: https://github.com/Stefanwullems/jest-date/stargazers
+  https://img.shields.io/github/stars/mewben/jest-date-2.svg?style=social
+[github-star]: https://github.com/mewben/jest-date-2/stargazers
