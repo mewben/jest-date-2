@@ -31,10 +31,10 @@ that arise in doing so and you want to get valueable feedback when tests fail.
 
 ## This solution
 
-The `jest-date` library provides a set of custom jest matchers that you can use
-to extend jest. These will make your tests more declarative, clear to read and
-to maintain. Next to that, it will give you valueable information as to why your
-test are failing.
+The `jest-date-2` library provides a set of custom jest matchers that you can
+use to extend jest. These will make your tests more declarative, clear to read
+and to maintain. Next to that, it will give you valueable information as to why
+your test are failing.
 
 ## Table of Contents
 
@@ -76,19 +76,19 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev jest-date
+npm install --save-dev jest-date-2
 ```
 
 ## Usage
 
-Import `jest-date` once (for instance in your [tests setup file][]) and you're
+Import `jest-date-2` once (for instance in your [tests setup file][]) and you're
 good to go:
 
 [tests setup file]:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
-import 'jest-date'
+import 'jest-date-2'
 ```
 
 > Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
@@ -98,7 +98,7 @@ Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
 
 ```javascript
-import {toBeBefore, toBeSameMonthAs} from 'jest-date/matchers'
+import {toBeBefore, toBeSameMonthAs} from 'jest-date-2/matchers'
 
 expect.extend({toBeBefore, toBeSameMonthAs})
 ```
@@ -148,9 +148,9 @@ Here are some concrete examples:
 
 ## Custom matchers
 
-`jest-date` can work with any library or framework. The custom matcher examples
-below are written using functions from the awesome [date-fns][date-fns] library
-(e.g. `isBefore`, `isSameDayAs`, `formatDistance`, etc.)
+`jest-date-2` can work with any library or framework. The custom matcher
+examples below are written using functions from the awesome [date-fns][date-fns]
+library (e.g. `isBefore`, `isSameDayAs`, `formatDistance`, etc.)
 
 ### `toBeBefore`
 
